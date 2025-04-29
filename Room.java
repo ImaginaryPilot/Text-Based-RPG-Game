@@ -3,36 +3,80 @@ package nl.rug.oop.rpg;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room implements Inspectable{
+/**
+ * The room class.
+ */
+public class Room implements Inspectable {
+    /**
+     * The name of the room.
+     */
     private String name;
+    /**
+     * The description of the room.
+     */
     private String description;
+    /**
+     * The doors in the room.
+     */
     private List<Door> doors;
+    /**
+     * The NPCs in the room.
+     */
     private List<NPC> npcs;
 
-    public Room(String name, String description){
+    /**
+     * Constructor Room.
+     *
+     * @param name        the name of the room
+     * @param description the description of the room
+     */
+    public Room(String name, String description) {
         this.name = name;
         this.description = description;
         this.doors = new ArrayList<>();
         this.npcs = new ArrayList<>();
     }
 
+    /**
+     * Inspect the room.
+     */
     @Override
     public void inspect() {
         System.out.println(description + " The room has " + doors.size() + " door(s).");
     }
 
-    public void addDoor(Door door){
+    /**
+     * Add a door to the room.
+     *
+     * @param door the door
+     */
+    public void addDoor(Door door) {
         doors.add(door);
     }
 
-    public void addNPC(NPC npc){
+    /**
+     * Add an NPC to the room.
+     *
+     * @param npc the NPC
+     */
+    public void addNPC(NPC npc) {
         npcs.add(npc);
     }
 
-    public List<NPC> getNPCs(){
+    /**
+     * Get the NPCs in the room.
+     *
+     * @return the NPCs in a list
+     */
+    public List<NPC> getNPCs() {
         return npcs;
     }
 
+    /**
+     * Get the doors in the room.
+     *
+     * @return the doors in a list
+     */
     public List<Door> getDoors() {
         return doors;
     }

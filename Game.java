@@ -2,11 +2,35 @@ package nl.rug.oop.rpg;
 
 import java.util.Scanner;
 
+/**
+ * The main game class.
+ */
 public class Game {
+    /**
+     * The player.
+     */
     private Player player;
+    /**
+     * The goal room.
+     */
     private Room goalRoom;
-    private Scanner scanner = new Scanner(System.in);
+    /**
+     * The scanner.
+     */
+    private Scanner scanner;
 
+    /**
+     * Constructor Game.
+     */
+    public Game() {
+        this.scanner = new Scanner(System.in);
+        this.goalRoom = null;
+        this.player = null;
+    }
+
+    /**
+     * Start the game.
+     */
     public void startGame() {
         System.out.println("Welcome to ___ RPG");
         System.out.println("Please input a player name:");
@@ -22,6 +46,9 @@ public class Game {
         System.out.println(player.getName());
     }
 
+    /**
+     * Play the game.
+     */
     public void playGame() {
         boolean running = true;
         while (running) {
@@ -31,12 +58,17 @@ public class Game {
         }
     }
 
+    /**
+     * End the game.
+     */
     public void endGame() {
         System.out.println("Thanks for playing, " + player.getName() + "!");
         scanner.close();
     }
 
-    // Print Main Menu
+    /**
+     * Print the menu.
+     */
     public void printMenu() {
         System.out.println("What do you want to do?");
         System.out.println(" (0) Look around");
@@ -47,7 +79,12 @@ public class Game {
         System.out.println(" (5) Quit game"); // Temporary
     }
 
-    // Handle all possible player choices in the main menu
+    /**
+     * Handle the player's choice.
+     *
+     * @param choice the player's choice
+     * @return true if the game should continue, false if the game should end
+     */
     public boolean handlePlayerChoice(int choice) {
         switch (choice) {
             case 0: // Inspect Room
@@ -68,7 +105,9 @@ public class Game {
         }
     }
 
-    // Moving to next room
+    /**
+     * Move through the current room.
+     */
     public void moveThroughRoom() {
         Room currentRoom = player.getCurrentRoom();
         System.out.println("You look around for doors.");
@@ -86,6 +125,9 @@ public class Game {
         }
     }
 
+    /**
+     * Check if there are NPCs in the current room.
+     */
     public void checkNPC() {
         Room currentRoom = player.getCurrentRoom();
         System.out.println("You look if there’s someone here.");
