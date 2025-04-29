@@ -44,6 +44,9 @@ public class Game {
         startRoom.addNPC(npc);
         startRoom.addDoor(door);
         System.out.println(player.getName());
+
+        NPC firstEnemy = new Enemy("Really loveable thingy");
+        startRoom.addNPC(firstEnemy);
     }
 
     /**
@@ -140,7 +143,50 @@ public class Game {
         int choice = scanner.nextInt();
         if (choice != -1) {
             NPC npc = currentRoom.getNPCs().get(choice);
-            npc.interact(player);
+            handleNPCInteraction(npc);
+
+        }
+    }
+
+    /**
+     * Handle the interaction with an NPC.
+     * @param npc the NPC to interact with
+     */
+    public void handleNPCInteraction(NPC npc) {
+        boolean keepInteracting = true;
+        int choice = 0;
+        while (keepInteracting) {
+            System.out.println("What do you want to do with " + npc.getNPCDescription() + "?");
+            System.out.println("  (0) Interact");
+            System.out.println("  (1) Attack");
+            System.out.println("  (2) Ignore");
+            System.out.println("  (3) Quit interaction");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 0:
+                    npc.interact(player);
+                    break;
+                case 1:
+                    if (npc instanceof Attackable target) {
+                        boolean targetSurvived = player.attack(target);
+                        if (!targetSurvived) {
+                            keepInteracting = false;
+                        }
+                    } else {
+                        System.out.println("This NPC is not attackable.");
+                    }
+                    break;
+                case 2:
+                    System.out.println("NPC doesn't like to be ignored!");
+                    npc.attack(player);
+                    break;
+                case 3:
+                    keepInteracting = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+                    break;
+            }
         }
     }
 

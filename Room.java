@@ -80,4 +80,11 @@ public class Room implements Inspectable {
     public List<Door> getDoors() {
         return doors;
     }
+
+    /**
+     * Remove all dead NPCs from the room.
+     */
+    public void removeDeadNPCs(){
+        npcs.removeIf(npc -> !npc.isAlive());
+    }
 }

@@ -3,7 +3,7 @@ package nl.rug.oop.rpg;
 /**
  * The player class.
  */
-public class Player {
+public class Player implements Attackable {
     /**
      * The name of the player.
      */
@@ -35,12 +35,23 @@ public class Player {
     }
 
     /**
+     * Get the player health.
+     *
+     * @return health
+     */
+    public int getHealth() {
+        return health;
+    }
+
+    /**
      * Reduce the player's health by the given damage amount.
      *
      * @param damage the damage taken
+     * @return true if the player is still alive, false otherwise
      */
-    public void takeDamage(int damage) {
+    public boolean takeDamage(int damage) {
         health -= damage;
+        return health > 0;
     }
 
     /**
@@ -69,4 +80,48 @@ public class Player {
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
+
+    /**
+     * Check if the player is alive.
+     *
+     * @return true if the player is alive, false otherwise
+     */
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    /**
+     * The player attacks the given target.
+     *
+     * @param target the target
+     * @return true if the target is still alive, false otherwise
+     */
+    public boolean attack(Attackable target) {
+        boolean targetSurvived = target.takeDamage(damage);
+        if (!targetSurvived) {
+            this.currentRoom.removeDeadNPCs();
+            return false;
+        }
+        System.out.println(this.name + " attacked the target with " + damage + " damage!");
+        return true;
+
+    }
+
+    /**
+     * Handle the player's death.
+     */
+    public void onDeath() {
+        gameOver();
+    }
+
+    /**
+     * Print a game over message and exit the game.
+     */
+    public void gameOver() {
+        System.out.println("Game over!");
+        System.out.println("You lost!");
+        System.out.println("The game will now exit.");
+        System.exit(0);
+    }
 }
+
