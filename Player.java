@@ -2,11 +2,15 @@ package nl.rug.oop.rpg;
 
 public class Player {
     private String name;
-    private int health = 100;
-    private int damage = 10;
+    private Room currentRoom;
+    private int health;
+    private int damage;
 
-    public Player(String name){
+    public Player(String name, Room currentRoom) {
         this.name = name;
+        this.currentRoom = currentRoom;
+        this.health = 100;
+        this.damage = 10;
     }
 
     public void takeDamage(int damage) {
@@ -15,5 +19,13 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 }

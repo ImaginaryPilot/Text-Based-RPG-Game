@@ -1,9 +1,9 @@
 package nl.rug.oop.rpg;
 
-public class NPC implements Inspectable, Interactable{
+public class NPC implements Inspectable, Interactable {
     private String description;
 
-    public NPC(String description){
+    public NPC(String description) {
         this.description = description;
     }
 
@@ -13,11 +13,11 @@ public class NPC implements Inspectable, Interactable{
     }
 
     @Override
-    public void interact(Game game, Player player) {
+    public void interact(Player player) {
         System.out.println("Howdy, " + player.getName() + "!");
     }
 
-    public String getNPCDescription(){
+    public String getNPCDescription() {
         return description;
     }
 }

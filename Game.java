@@ -1,46 +1,43 @@
 package nl.rug.oop.rpg;
+
 import java.util.Scanner;
 
 public class Game {
     private Player player;
-    private Room startRoom;
-    private Room currentRoom;
     private Room goalRoom;
     private Scanner scanner = new Scanner(System.in);
 
-    public void startGame(){
+    public void startGame() {
         System.out.println("Welcome to ___ RPG");
         System.out.println("Please input a player name:");
 
         String playerName = scanner.nextLine(); // <-- Read player name
-        player = new Player(playerName);
-        startRoom = new Room("Lobby", "A desolate and empty lobby.");
-        currentRoom = startRoom;
+        Room startRoom = new Room("Lobby", "A desolate and empty lobby.");
+        player = new Player(playerName, startRoom);
         goalRoom = new Room("Goal", "The room to exponential possibility and ends.");
-        Door door = new Door(currentRoom, "A door");
+        Door door = new Door(goalRoom, "A door (to the goal room).");
         NPC npc = new NPC("A suspiciously happy looking orc");
         startRoom.addNPC(npc);
         startRoom.addDoor(door);
-        goalRoom.addDoor(door);
         System.out.println(player.getName());
     }
 
-    public void playGame(){
+    public void playGame() {
         boolean running = true;
-        while(running){
+        while (running) {
             printMenu();
             int choice = scanner.nextInt();
             running = handlePlayerChoice(choice);
         }
     }
 
-    public void endGame(){
+    public void endGame() {
         System.out.println("Thanks for playing, " + player.getName() + "!");
         scanner.close();
     }
 
     // Print Main Menu
-    public void printMenu(){
+    public void printMenu() {
         System.out.println("What do you want to do?");
         System.out.println(" (0) Look around");
         System.out.println(" (1) Look for a way out");
@@ -51,11 +48,11 @@ public class Game {
     }
 
     // Handle all possible player choices in the main menu
-    public boolean handlePlayerChoice(int choice){
-        switch(choice){
+    public boolean handlePlayerChoice(int choice) {
+        switch (choice) {
             case 0: // Inspect Room
                 System.out.print("You see: ");
-                currentRoom.inspect();
+                player.getCurrentRoom().inspect();
                 return true;
             case 1: // Find all possible doors
                 moveThroughRoom();
@@ -72,7 +69,8 @@ public class Game {
     }
 
     // Moving to next room
-    public void moveThroughRoom(){
+    public void moveThroughRoom() {
+        Room currentRoom = player.getCurrentRoom();
         System.out.println("You look around for doors.");
         System.out.println("You see:");
         for (int i = 0; i < currentRoom.getDoors().size(); i++) {
@@ -81,29 +79,27 @@ public class Game {
         }
         System.out.println("Which door do you take? (-1 : stay here)");
         int choice = scanner.nextInt();
-        if(choice!= -1){
+        if (choice != -1) {
             System.out.println("You go through the door");
             Door door = currentRoom.getDoors().get(choice);
-            door.interact(this, player);
+            door.interact(player);
         }
     }
 
-    public void checkNPC(){
+    public void checkNPC() {
+        Room currentRoom = player.getCurrentRoom();
         System.out.println("You look if there’s someone here.");
         System.out.println("You see:");
-        for (int i = 0; i < currentRoom.getNPCS().size(); i++) {
-            NPC npc = currentRoom.getNPCS().get(i); // Get the npc from the list
+        for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
+            NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
             System.out.println(" (" + i + ") " + npc.getNPCDescription());
         }
         System.out.println("Interact ? (-1 : do nothing)");
         int choice = scanner.nextInt();
-        if(choice!= -1){
-            NPC npc = currentRoom.getNPCS().get(choice);
-            npc.interact(this, player);
+        if (choice != -1) {
+            NPC npc = currentRoom.getNPCs().get(choice);
+            npc.interact(player);
         }
     }
 
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }
 }

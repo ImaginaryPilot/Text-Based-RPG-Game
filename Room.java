@@ -29,7 +29,7 @@ public class Room implements Inspectable{
         npcs.add(npc);
     }
 
-    public List<NPC> getNPCS(){
+    public List<NPC> getNPCs(){
         return npcs;
     }
 

@@ -15,8 +15,8 @@ public class Door implements Inspectable, Interactable{
     }
 
     @Override
-    public void interact(Game game, Player player) {
-        game.setCurrentRoom(nextRoom);
+    public void interact(Player player) {
+        player.setCurrentRoom(nextRoom);
     }
 
     public String getDoorDescription(){
