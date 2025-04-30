@@ -1,4 +1,7 @@
-package nl.rug.oop.rpg;
+package nl.rug.oop.rpg.npc;
+
+import nl.rug.oop.rpg.interfaces.Attackable;
+import nl.rug.oop.rpg.player.Player;
 
 /**
  * The Enemy class.

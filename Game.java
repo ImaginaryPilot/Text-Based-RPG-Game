@@ -1,5 +1,11 @@
 package nl.rug.oop.rpg;
 
+import nl.rug.oop.rpg.asset.Door;
+import nl.rug.oop.rpg.asset.Room;
+import nl.rug.oop.rpg.interfaces.Attackable;
+import nl.rug.oop.rpg.npc.Enemy;
+import nl.rug.oop.rpg.npc.NPC;
+import nl.rug.oop.rpg.player.Player;
 import java.util.Scanner;
 
 /**
@@ -100,6 +106,9 @@ public class Game {
             case 2:
                 checkNPC();
                 return true;
+            case 3:
+                changeDifficulty();
+                return true;
             case 5:
                 return false;
             default:
@@ -144,7 +153,6 @@ public class Game {
         if (choice != -1) {
             NPC npc = currentRoom.getNPCs().get(choice);
             handleNPCInteraction(npc);
-
         }
     }
 
@@ -157,10 +165,10 @@ public class Game {
         int choice = 0;
         while (keepInteracting) {
             System.out.println("What do you want to do with " + npc.getNPCDescription() + "?");
-            System.out.println("  (0) Interact");
-            System.out.println("  (1) Attack");
-            System.out.println("  (2) Ignore");
-            System.out.println("  (3) Quit interaction");
+            System.out.println(" (0) Interact");
+            System.out.println(" (1) Attack");
+            System.out.println(" (2) Ignore");
+            System.out.println(" (3) Quit interaction");
             choice = scanner.nextInt();
             switch (choice) {
                 case 0:
@@ -190,4 +198,39 @@ public class Game {
         }
     }
 
+    public void changeDifficulty(){
+        Room currentRoom = player.getCurrentRoom();
+        System.out.println("What difficulty do you wish to change to?");
+        System.out.println(" (0) Easy");
+        System.out.println(" (1) Medium");
+        System.out.println(" (2) Hard");
+        int choice = scanner.nextInt();
+        switch(choice){
+            case 0:
+                player.changeDamage(15);
+                for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
+                    NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
+                    npc.changeDamage(5);
+                }
+                break;
+            case 1:
+                player.changeDamage(10);
+                for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
+                    NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
+                    npc.changeDamage(10);
+                }
+                break;
+            case 2:
+                player.changeDamage(5);
+                for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
+                    NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
+                    npc.changeDamage(15);
+                }
+                break;
+            default:
+                System.out.println("Invalid option.");
+                break;
+        }
+        System.out.println("Difficulty change");
+    }
 }

@@ -1,5 +1,14 @@
-package nl.rug.oop.rpg;
+package nl.rug.oop.rpg.npc;
 
+import lombok.Getter;
+import lombok.Setter;
+import nl.rug.oop.rpg.interfaces.Attackable;
+import nl.rug.oop.rpg.interfaces.Inspectable;
+import nl.rug.oop.rpg.interfaces.Interactable;
+import nl.rug.oop.rpg.player.Player;
+
+@Getter
+@Setter
 /**
  * The NPC class.
  */
@@ -64,15 +73,6 @@ public class NPC implements Inspectable, Interactable {
     }
 
     /**
-     * Get the NPC health.
-     *
-     * @return health
-     */
-    public int getHealth() {
-        return health;
-    }
-
-    /**
      * Reduce the NPC's health by the given damage amount.
      *
      * @param damage the damage taken
@@ -85,6 +85,15 @@ public class NPC implements Inspectable, Interactable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Change the damage amount of the player.
+     *
+     * @param damage change the damage amount
+     */
+    public void changeDamage(int damage){
+        this.damage = damage;
     }
 
     /**

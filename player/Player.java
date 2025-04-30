@@ -1,5 +1,12 @@
-package nl.rug.oop.rpg;
+package nl.rug.oop.rpg.player;
 
+import lombok.Getter;
+import lombok.Setter;
+import nl.rug.oop.rpg.interfaces.Attackable;
+import nl.rug.oop.rpg.asset.Room;
+
+@Getter
+@Setter
 /**
  * The player class.
  */
@@ -35,12 +42,12 @@ public class Player implements Attackable {
     }
 
     /**
-     * Get the player health.
+     * Change the damage amount of the player.
      *
-     * @return health
+     * @param damage change the amount of damage taken
      */
-    public int getHealth() {
-        return health;
+    public void changeDamage(int damage){
+        this.damage = damage;
     }
 
     /**
@@ -52,33 +59,6 @@ public class Player implements Attackable {
     public boolean takeDamage(int damage) {
         health -= damage;
         return health > 0;
-    }
-
-    /**
-     * Get the player name.
-     *
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the current room.
-     *
-     * @return currentRoom
-     */
-    public Room getCurrentRoom() {
-        return currentRoom;
-    }
-
-    /**
-     * Set the current room.
-     *
-     * @param currentRoom the current room
-     */
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
     }
 
     /**

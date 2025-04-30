@@ -1,4 +1,8 @@
-package nl.rug.oop.rpg;
+package nl.rug.oop.rpg.asset;
+
+import nl.rug.oop.rpg.interfaces.Inspectable;
+import nl.rug.oop.rpg.interfaces.Interactable;
+import nl.rug.oop.rpg.player.Player;
 
 /**
  * The Door class.

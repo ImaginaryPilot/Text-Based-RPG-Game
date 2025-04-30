@@ -1,8 +1,15 @@
-package nl.rug.oop.rpg;
+package nl.rug.oop.rpg.asset;
+
+import lombok.Getter;
+import lombok.Setter;
+import nl.rug.oop.rpg.interfaces.Inspectable;
+import nl.rug.oop.rpg.npc.NPC;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 /**
  * The room class.
  */
@@ -70,15 +77,6 @@ public class Room implements Inspectable {
      */
     public List<NPC> getNPCs() {
         return npcs;
-    }
-
-    /**
-     * Get the doors in the room.
-     *
-     * @return the doors in a list
-     */
-    public List<Door> getDoors() {
-        return doors;
     }
 
     /**
