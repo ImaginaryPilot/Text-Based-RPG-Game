@@ -8,12 +8,20 @@ import nl.rug.oop.rpg.player.Player;
  */
 public class Enemy extends NPC implements Attackable {
     /**
+     * The default health of the NPC.
+     */
+    private int health;
+    /**
+     * The default damage of the NPC.
+     */
+    private int damage;
+    /**
      * Constructor NPC.
      *
      * @param description the description of the NPC
      */
-    public Enemy(String description) {
-        super(description);
+    public Enemy(String description, int health, int damage) {
+        super(description, health, damage);
     }
 
     /**
@@ -53,6 +61,6 @@ public class Enemy extends NPC implements Attackable {
      */
     @Override
     public void onDeath() {
-        System.out.println(super.description + "has died. That is one less enemy!");
+        System.out.println(super.getDescription() + "has died. That is one less enemy!");
     }
 }

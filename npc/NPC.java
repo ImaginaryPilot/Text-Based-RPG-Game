@@ -14,35 +14,27 @@ import nl.rug.oop.rpg.player.Player;
  */
 public class NPC implements Inspectable, Interactable {
     /**
-     * The default health of the NPC.
-     */
-    private static final int DEFAULT_HEALTH = 100;
-    /**
-     * The default damage of the NPC.
-     */
-    private static final int DEFAULT_DAMAGE = 10;
-    /**
      * The description of the NPC.
      */
-    protected final String description;
+    private final String description;
     /**
      * The health of the NPC.
      */
-    protected int health;
+    private int health;
     /**
      * The damage the NPC does.
      */
-    protected int damage;
+    private int damage;
 
     /**
      * Constructor NPC.
      *
      * @param description the description of the NPC
      */
-    public NPC(String description) {
+    public NPC(String description, int health, int damage) {
         this.description = description;
-        this.health = DEFAULT_HEALTH;
-        this.damage = DEFAULT_DAMAGE;
+        this.health = health;
+        this.damage = damage;
     }
 
     /**
