@@ -7,32 +7,48 @@ import nl.rug.oop.rpg.player.Player;
 
 import java.util.Scanner;
 
+/**
+ * The CheckNPC class.
+ */
 public final class CheckNPC {
+    /**
+     * Check if there is an NPC in the current room.
+     *
+     * @param player  the player to interact with the NPC
+     * @param scanner the scanner
+     */
     public static void checkNPC(Player player, Scanner scanner) {
         Room currentRoom = player.getCurrentRoom();
         System.out.println("You look if there’s someone here.");
         System.out.println("You see:");
         for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
             NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
-            System.out.println(" (" + i + ") " + npc.getNPCDescription());
+            System.out.println(" (" + i + ") " + npc.getDescription());
         }
         System.out.println("Interact ? (-1 : do nothing)");
         int choice = scanner.nextInt();
         if (choice != -1) {
-            NPC npc = currentRoom.getNPCs().get(choice);
-            handleNPCInteraction(npc, player, scanner);
+            if (choice < currentRoom.getNPCs().size()) {
+                NPC npc = currentRoom.getNPCs().get(choice);
+                handleNPCInteraction(npc, player, scanner);
+            } else {
+                System.out.println("There is no NPC at this location.");
+            }
         }
     }
 
     /**
      * Handle the interaction with an NPC.
-     * @param npc the NPC to interact with
+     *
+     * @param npc     the NPC to interact with
+     * @param player  the player
+     * @param scanner the scanner
      */
     public static void handleNPCInteraction(NPC npc, Player player, Scanner scanner) {
         boolean keepInteracting = true;
         int choice = 0;
         while (keepInteracting) {
-            System.out.println("What do you want to do with " + npc.getNPCDescription() + "?");
+            System.out.println("What do you want to do with " + npc.getDescription() + "?");
             System.out.println(" (0) Interact");
             System.out.println(" (1) Attack");
             System.out.println(" (2) Ignore");

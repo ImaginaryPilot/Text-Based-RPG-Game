@@ -5,11 +5,11 @@ import lombok.Setter;
 import nl.rug.oop.rpg.interfaces.Attackable;
 import nl.rug.oop.rpg.asset.Room;
 
-@Getter
-@Setter
 /**
  * The player class.
  */
+@Getter
+@Setter
 public class Player implements Attackable {
     /**
      * The name of the player.
@@ -23,6 +23,10 @@ public class Player implements Attackable {
      * The health of the player.
      */
     private int health;
+    /**
+     * The maximum health of the player.
+     */
+    private int maxHealth;
     /**
      * The damage the player does.
      */
@@ -38,6 +42,7 @@ public class Player implements Attackable {
         this.name = name;
         this.currentRoom = currentRoom;
         this.health = 100;
+        this.maxHealth = 100;
         this.damage = 10;
     }
 
@@ -46,7 +51,7 @@ public class Player implements Attackable {
      *
      * @param damage change the amount of damage taken
      */
-    public void changeDamage(int damage){
+    public void changeDamage(int damage) {
         this.damage = damage;
     }
 

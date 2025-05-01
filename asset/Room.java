@@ -8,11 +8,11 @@ import nl.rug.oop.rpg.npc.NPC;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 /**
  * The room class.
  */
+@Getter
+@Setter
 public class Room implements Inspectable {
     /**
      * The name of the room.
@@ -29,7 +29,7 @@ public class Room implements Inspectable {
     /**
      * The NPCs in the room.
      */
-    private List<NPC> npcs;
+    private List<NPC> NPCs;
 
     /**
      * Constructor Room.
@@ -41,7 +41,7 @@ public class Room implements Inspectable {
         this.name = name;
         this.description = description;
         this.doors = new ArrayList<>();
-        this.npcs = new ArrayList<>();
+        this.NPCs = new ArrayList<>();
     }
 
     /**
@@ -67,22 +67,13 @@ public class Room implements Inspectable {
      * @param npc the NPC
      */
     public void addNPC(NPC npc) {
-        npcs.add(npc);
-    }
-
-    /**
-     * Get the NPCs in the room.
-     *
-     * @return the NPCs in a list
-     */
-    public List<NPC> getNPCs() {
-        return npcs;
+        NPCs.add(npc);
     }
 
     /**
      * Remove all dead NPCs from the room.
      */
-    public void removeDeadNPCs(){
-        npcs.removeIf(npc -> !npc.isAlive());
+    public void removeDeadNPCs() {
+        NPCs.removeIf(npc -> !npc.isAlive());
     }
 }

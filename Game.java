@@ -1,10 +1,8 @@
 package nl.rug.oop.rpg;
 
-import nl.rug.oop.rpg.asset.Door;
 import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.menu.*;
 import nl.rug.oop.rpg.npc.Enemy;
-import nl.rug.oop.rpg.npc.NPC;
 import nl.rug.oop.rpg.player.Player;
 import nl.rug.oop.rpg.generator.LevelGenerator;
 
@@ -19,16 +17,25 @@ public class Game {
      * The player.
      */
     private Player player;
+    /**
+     * The Enemy.
+     */
     private Enemy boss;
     /**
      * The goal room.
      */
     private Room goalRoom;
+    /**
+     * The trader's room.
+     */
     private Room traderRoom;
     /**
      * The scanner.
      */
     private Scanner scanner;
+    /**
+     * The level rooms.
+     */
     private List<Room> levelRooms;
 
     /**
@@ -70,7 +77,7 @@ public class Game {
     public void playGame() {
         boolean running = true;
         while (running) {
-            if(player.getCurrentRoom() == goalRoom) {
+            if (player.getCurrentRoom() == goalRoom) {
                 BossFight.bossFight(player, boss);
                 running = false;
             }
