@@ -1,5 +1,7 @@
 package nl.rug.oop.rpg.asset;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.rug.oop.rpg.interfaces.Inspectable;
 import nl.rug.oop.rpg.interfaces.Interactable;
 import nl.rug.oop.rpg.player.Player;
@@ -7,20 +9,22 @@ import nl.rug.oop.rpg.player.Player;
 /**
  * The Door class.
  */
+@Getter
+@Setter
 public class Door implements Inspectable, Interactable {
     /**
      * The next room the door leads to.
      */
-    private Room nextRoom;
+    private final Room nextRoom;
     /**
      * The description of the door.
      */
-    private String description;
+    private final String description;
 
     /**
      * Constructor Door.
      *
-     * @param nextRoom    the next room the door leads to
+     * @param nextRoom    the room the door leads to
      * @param description the description of the door
      */
     public Door(Room nextRoom, String description) {
@@ -44,14 +48,5 @@ public class Door implements Inspectable, Interactable {
     @Override
     public void interact(Player player) {
         player.setCurrentRoom(nextRoom);
-    }
-
-    /**
-     * Get the door description.
-     *
-     * @return description
-     */
-    public String getDoorDescription() {
-        return description;
     }
 }

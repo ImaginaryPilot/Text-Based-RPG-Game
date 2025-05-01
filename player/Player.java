@@ -26,6 +26,10 @@ public class Player implements Attackable {
      */
     private int health;
     /**
+     * The maximum health of the player.
+     */
+    private int maxHealth;
+    /**
      * The damage the player does.
      */
     private int damage;
@@ -44,6 +48,7 @@ public class Player implements Attackable {
         this.name = name;
         this.currentRoom = currentRoom;
         this.health = 100;
+        this.maxHealth = 100;
         this.damage = 10;
         this.damageResistance = 0;
     }
@@ -79,8 +84,16 @@ public class Player implements Attackable {
     public int heal(){
         Random rand = new Random();
         int val = rand.nextInt(5) * 10;
-        health = health + val;
-        return val;
+        if(health + val > maxHealth){
+            int val2 = health;
+            this.health = maxHealth;
+            return maxHealth - val2;
+        }
+        else{
+            health = health + val;
+            return val;
+        }
+
     }
 
     /**

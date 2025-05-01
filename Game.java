@@ -1,11 +1,12 @@
 package nl.rug.oop.rpg;
 
-import nl.rug.oop.rpg.asset.Door;
 import nl.rug.oop.rpg.asset.Room;
-import nl.rug.oop.rpg.interfaces.Attackable;
+import nl.rug.oop.rpg.menu.*;
 import nl.rug.oop.rpg.npc.Enemy;
-import nl.rug.oop.rpg.npc.NPC;
 import nl.rug.oop.rpg.player.Player;
+import nl.rug.oop.rpg.generator.LevelGenerator;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -17,13 +18,25 @@ public class Game {
      */
     private Player player;
     /**
+     * The Enemy.
+     */
+    private Enemy boss;
+    /**
      * The goal room.
      */
     private Room goalRoom;
     /**
+     * The trader's room.
+     */
+    private Room traderRoom;
+    /**
      * The scanner.
      */
     private Scanner scanner;
+    /**
+     * The level rooms.
+     */
+    private List<Room> levelRooms;
 
     /**
      * Constructor Game.
@@ -43,16 +56,19 @@ public class Game {
 
         String playerName = scanner.nextLine(); // <-- Read player name
         Room startRoom = new Room("Lobby", "A desolate and empty lobby.");
-        player = new Player(playerName, startRoom);
-        goalRoom = new Room("Goal", "The room to exponential possibility and ends.");
-        Door door = new Door(goalRoom, "A door (to the goal room).");
-        NPC npc = new NPC("A suspiciously happy looking orc");
-        startRoom.addNPC(npc);
-        startRoom.addDoor(door);
-        System.out.println(player.getName());
+        goalRoom = new Room("Vault", "The room to exponential possibility and ends.");
+        traderRoom = new Room("Trader's Den", "A hidden nook filled with rare goods.");
 
-        NPC firstEnemy = new Enemy("Really loveable thingy");
-        startRoom.addNPC(firstEnemy);
+        player = new Player(playerName, startRoom);
+
+        // Final Boss
+        boss = new Enemy("The red valiant Dragon, protecting it's history.", 200, 20);
+        goalRoom.addNPC(boss);
+
+        // Generate intermediate rooms
+        levelRooms = LevelGenerator.generateRooms(6, startRoom, goalRoom, traderRoom);
+
+        System.out.println(player.getName() + " enters the lobby...");
     }
 
     /**
@@ -61,6 +77,10 @@ public class Game {
     public void playGame() {
         boolean running = true;
         while (running) {
+            if (player.getCurrentRoom() == goalRoom) {
+                BossFight.bossFight(player, boss);
+                running = false;
+            }
             printMenu();
             int choice = scanner.nextInt();
             running = handlePlayerChoice(choice);
@@ -84,8 +104,10 @@ public class Game {
         System.out.println(" (1) Look for a way out");
         System.out.println(" (2) Look for company");
         System.out.println(" (3) Change difficulty");
-        System.out.println(" (4) Check Inventory");
-        System.out.println(" (5) Quit game"); // Temporary
+        System.out.println(" (4) Check Trader");
+        System.out.println(" (5) Check Inventory");
+        System.out.println(" (6) Check Quests");
+        System.out.println(" (7) Quit game"); // Temporary
     }
 
     /**
@@ -101,136 +123,22 @@ public class Game {
                 player.getCurrentRoom().inspect();
                 return true;
             case 1: // Find all possible doors
-                moveThroughRoom();
+                MoveThroughRoom.moveThroughRoom(player, scanner);
                 return true;
             case 2:
-                checkNPC();
+                CheckNPC.checkNPC(player, scanner);
                 return true;
             case 3:
-                changeDifficulty();
+                ChangeDifficulty.changeDifficulty(player, scanner, levelRooms);
                 return true;
-            case 5:
+            case 4:
+                MoveToTraderRoom.moveToTraderFrom(player, traderRoom, scanner);
+                return true;
+            case 7:
                 return false;
             default:
                 System.out.println("Invalid option. Please try again.");
                 return true;
         }
-    }
-
-    /**
-     * Move through the current room.
-     */
-    public void moveThroughRoom() {
-        Room currentRoom = player.getCurrentRoom();
-        System.out.println("You look around for doors.");
-        System.out.println("You see:");
-        for (int i = 0; i < currentRoom.getDoors().size(); i++) {
-            Door door = currentRoom.getDoors().get(i); // Get the door from the list
-            System.out.println(" (" + i + ") " + door.getDoorDescription());
-        }
-        System.out.println("Which door do you take? (-1 : stay here)");
-        int choice = scanner.nextInt();
-        if (choice != -1) {
-            System.out.println("You go through the door");
-            Door door = currentRoom.getDoors().get(choice);
-            door.interact(player);
-        }
-    }
-
-    /**
-     * Check if there are NPCs in the current room.
-     */
-    public void checkNPC() {
-        Room currentRoom = player.getCurrentRoom();
-        System.out.println("You look if there’s someone here.");
-        System.out.println("You see:");
-        for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
-            NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
-            System.out.println(" (" + i + ") " + npc.getNPCDescription());
-        }
-        System.out.println("Interact ? (-1 : do nothing)");
-        int choice = scanner.nextInt();
-        if (choice != -1) {
-            NPC npc = currentRoom.getNPCs().get(choice);
-            handleNPCInteraction(npc);
-        }
-    }
-
-    /**
-     * Handle the interaction with an NPC.
-     * @param npc the NPC to interact with
-     */
-    public void handleNPCInteraction(NPC npc) {
-        boolean keepInteracting = true;
-        int choice = 0;
-        while (keepInteracting) {
-            System.out.println("What do you want to do with " + npc.getNPCDescription() + "?");
-            System.out.println(" (0) Interact");
-            System.out.println(" (1) Attack");
-            System.out.println(" (2) Ignore");
-            System.out.println(" (3) Quit interaction");
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 0:
-                    npc.interact(player);
-                    break;
-                case 1:
-                    if (npc instanceof Attackable target) {
-                        boolean targetSurvived = player.attack(target);
-                        if (!targetSurvived) {
-                            keepInteracting = false;
-                        }
-                    } else {
-                        System.out.println("This NPC is not attackable.");
-                    }
-                    break;
-                case 2:
-                    System.out.println("NPC doesn't like to be ignored!");
-                    npc.attack(player);
-                    break;
-                case 3:
-                    keepInteracting = false;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-                    break;
-            }
-        }
-    }
-
-    public void changeDifficulty(){
-        Room currentRoom = player.getCurrentRoom();
-        System.out.println("What difficulty do you wish to change to?");
-        System.out.println(" (0) Easy");
-        System.out.println(" (1) Medium");
-        System.out.println(" (2) Hard");
-        int choice = scanner.nextInt();
-        switch(choice){
-            case 0:
-                player.changeDamage(15);
-                for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
-                    NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
-                    npc.changeDamage(5);
-                }
-                break;
-            case 1:
-                player.changeDamage(10);
-                for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
-                    NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
-                    npc.changeDamage(10);
-                }
-                break;
-            case 2:
-                player.changeDamage(5);
-                for (int i = 0; i < currentRoom.getNPCs().size(); i++) {
-                    NPC npc = currentRoom.getNPCs().get(i); // Get the npc from the list
-                    npc.changeDamage(15);
-                }
-                break;
-            default:
-                System.out.println("Invalid option.");
-                break;
-        }
-        System.out.println("Difficulty change");
     }
 }
