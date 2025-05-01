@@ -5,6 +5,8 @@ import lombok.Setter;
 import nl.rug.oop.rpg.interfaces.Attackable;
 import nl.rug.oop.rpg.asset.Room;
 
+import java.util.Random;
+
 @Getter
 @Setter
 /**
@@ -27,6 +29,10 @@ public class Player implements Attackable {
      * The damage the player does.
      */
     private int damage;
+    /**
+     * The damage subtracted from the attacks of the enemies.
+     */
+    private int damageResistance;
 
     /**
      * Constructor Player.
@@ -39,6 +45,7 @@ public class Player implements Attackable {
         this.currentRoom = currentRoom;
         this.health = 100;
         this.damage = 10;
+        this.damageResistance = 0;
     }
 
     /**
@@ -51,14 +58,29 @@ public class Player implements Attackable {
     }
 
     /**
+     * Increases the damage negated by the armor of the player.
+     *
+     */
+    public void changeDamageResistance(){
+        this.damageResistance = damageResistance + 2;
+    }
+
+    /**
      * Reduce the player's health by the given damage amount.
      *
      * @param damage the damage taken
      * @return true if the player is still alive, false otherwise
      */
     public boolean takeDamage(int damage) {
-        health -= damage;
+        health = health - (damage - damageResistance);
         return health > 0;
+    }
+
+    public int heal(){
+        Random rand = new Random();
+        int val = rand.nextInt(5) * 10;
+        health = health + val;
+        return val;
     }
 
     /**
