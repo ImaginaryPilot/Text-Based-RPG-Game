@@ -12,7 +12,10 @@ import java.util.Random;
  * The CheckNPC class.
  */
 public final class CheckNPC {
-    private static final Random rand = new Random();
+    /**
+     * Random variable generator.
+     */
+    private static final Random RAND = new Random();
 
     /**
      * Check if there is an NPC in the current room.
@@ -65,7 +68,7 @@ public final class CheckNPC {
                     if (npc instanceof Attackable target) {
                         boolean targetSurvived = player.attack(target);
                         if (!targetSurvived) {
-                            int amount = 8 + rand.nextInt(3); // 8 - 10 coin
+                            int amount = 8 + RAND.nextInt(3); // 8 - 10 coin
                             player.getMoney(amount);
                             keepInteracting = false;
                         }

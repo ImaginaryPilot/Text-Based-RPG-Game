@@ -1,4 +1,4 @@
-package nl.rug.oop.rpg.Inventory;
+package nl.rug.oop.rpg.inventory;
 
 import nl.rug.oop.rpg.player.Player;
 

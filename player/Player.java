@@ -36,7 +36,7 @@ public class Player implements Attackable {
      */
     private int damageResistance;
     /**
-     * The amount of money the player has
+     * The amount of money the player has.
      */
     private int money;
 
@@ -85,16 +85,26 @@ public class Player implements Attackable {
         return health > 0;
     }
 
+    /**
+     * Player obtains money.
+     *
+     * @param amount the amount received
+     */
     public void getMoney(int amount) {
         money += amount;
     }
 
+    /**
+     * Player uses money.
+     *
+     * @param amount the amount used
+     * @return return true if the player has enough money
+     * */
     public boolean useMoney(int amount) {
         if(money - amount >= 0){
             money -= amount;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
