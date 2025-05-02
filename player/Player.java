@@ -35,6 +35,10 @@ public class Player implements Attackable {
      * The damage subtracted from the attacks of the enemies.
      */
     private int damageResistance;
+    /**
+     * The inventory of the player.
+     */
+    private Inventory inventory;
 
     /**
      * Constructor Player.
@@ -49,6 +53,7 @@ public class Player implements Attackable {
         this.maxHealth = 100;
         this.damage = 10;
         this.damageResistance = 0;
+        this.inventory = new Inventory();
     }
 
     /**
@@ -75,7 +80,7 @@ public class Player implements Attackable {
      * @param damage the damage taken
      * @return true if the player is still alive, false otherwise
      */
-    public boolean takeDamage(int damage) {
+    public boolean reduceHealth(int damage) {
         health = health - (damage - damageResistance);
         return health > 0;
     }
@@ -105,7 +110,7 @@ public class Player implements Attackable {
      * @return true if the target is still alive, false otherwise
      */
     public boolean attack(Attackable target) {
-        boolean targetSurvived = target.takeDamage(damage);
+        boolean targetSurvived = target.reduceHealth(damage);
         if (!targetSurvived) {
             this.currentRoom.removeDeadNPCs();
             return false;

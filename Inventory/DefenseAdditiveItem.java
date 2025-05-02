@@ -56,6 +56,7 @@ public class DefenseAdditiveItem extends DefenseItem {
     @Override
     public void interact(Player player) {
         player.increaseDamageResistance(damageResistance);
-        //        Delete the item?!
+        this.deleteFromInventory(player);
+        System.out.println(getUseMessage());
     }
 }

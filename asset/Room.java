@@ -2,6 +2,7 @@ package nl.rug.oop.rpg.asset;
 
 import lombok.Getter;
 import lombok.Setter;
+import nl.rug.oop.rpg.Inventory.Item;
 import nl.rug.oop.rpg.interfaces.Inspectable;
 import nl.rug.oop.rpg.npc.NPC;
 
@@ -30,6 +31,10 @@ public class Room implements Inspectable {
      * The NPCs in the room.
      */
     private List<NPC> NPCs;
+    /**
+     * The items in the room.
+     */
+    private List<Item> items;
 
     /**
      * Constructor Room.
@@ -42,6 +47,7 @@ public class Room implements Inspectable {
         this.description = description;
         this.doors = new ArrayList<>();
         this.NPCs = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     /**
@@ -75,5 +81,21 @@ public class Room implements Inspectable {
      */
     public void removeDeadNPCs() {
         NPCs.removeIf(npc -> !npc.isAlive());
+    }
+
+    /**
+     * Add an item to the room.
+     * @param item the item to add
+     */
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    /**
+     * Remove an item from the room.
+     * @param item the item to remove
+     */
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 }

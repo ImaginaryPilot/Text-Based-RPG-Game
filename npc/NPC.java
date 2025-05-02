@@ -100,7 +100,7 @@ public class NPC implements Inspectable, Interactable {
      * @param target the target (Player)
      */
     public void attack(Attackable target) {
-        boolean targetSurvived = target.takeDamage(damage);
+        boolean targetSurvived = target.reduceHealth(damage);
         System.out.println("An enemy attacked you with " + damage + " damage! Health left:" + target.getHealth());
         if (!targetSurvived) {
             target.onDeath();

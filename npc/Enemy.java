@@ -53,7 +53,7 @@ public class Enemy extends NPC implements Attackable {
      * @return true if the NPC is still alive, false otherwise
      */
     @Override
-    public boolean takeDamage(int damage) {
+    public boolean reduceHealth(int damage) {
         return super.takeDamage(damage);
     }
 

@@ -22,7 +22,7 @@ public abstract class DefenseItem extends Item {
      * @param useMessage  the use message
      * @param effect      the effect
      */
-    public DefenseItem(String name, String description, String useMessage, String effect) {
+    public DefenseItem(String name, String description, String effect, String useMessage) {
         super(name, description, effect);
         this.useMessage = useMessage;
     }

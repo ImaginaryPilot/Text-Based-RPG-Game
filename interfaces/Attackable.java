@@ -5,12 +5,12 @@ package nl.rug.oop.rpg.interfaces;
  */
 public interface Attackable {
     /**
-     * Take damage.
+     * Reduce damage.
      *
      * @param damage the damage taken
      * @return true if the object is still alive, false otherwise
      */
-    boolean takeDamage(int damage);
+    boolean reduceHealth(int damage);
 
     /**
      * Get the health of the object.

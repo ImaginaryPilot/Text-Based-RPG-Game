@@ -1,5 +1,7 @@
 package nl.rug.oop.rpg.generator;
 
+import nl.rug.oop.rpg.Inventory.DefenseAdditiveItem;
+import nl.rug.oop.rpg.Inventory.Item;
 import nl.rug.oop.rpg.asset.Door;
 import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.npc.Enemy;
@@ -18,19 +20,19 @@ public class LevelGenerator {
      * The room names.
      */
     private static final String[] ROOM_NAMES = {
-        "Hall", "Corridor", "Cave", "Dungeon", "Chamber", "Balcony", "Diner", "Armory"};
+            "Hall", "Corridor", "Cave", "Dungeon", "Chamber", "Balcony", "Diner", "Armory"};
     /**
      * The room descriptions.
      */
     private static final String[] ROOM_DESCRIPTIONS = {
-        "A damp and eerie space.",
-        "A room lined with flickering torches.",
-        "Filled with whispers of past adventurers.",
-        "Contains walls scratched by unknown claws.",
-        "A space that smells like sulfur and fear.",
-        "A view too cramped to be called pleasant",
-        "Stacked with remnants of past dwellers",
-        "Filled with nothing but rotting and empty artifacts"
+            "A damp and eerie space.",
+            "A room lined with flickering torches.",
+            "Filled with whispers of past adventurers.",
+            "Contains walls scratched by unknown claws.",
+            "A space that smells like sulfur and fear.",
+            "A view too cramped to be called pleasant",
+            "Stacked with remnants of past dwellers",
+            "Filled with nothing but rotting and empty artifacts"
     };
 
     /**
@@ -45,9 +47,10 @@ public class LevelGenerator {
 
     /**
      * Generate rooms.
-     * @param count the number of rooms to generate
-     * @param startRoom the start room
-     * @param goalRoom the goal room
+     *
+     * @param count      the number of rooms to generate
+     * @param startRoom  the start room
+     * @param goalRoom   the goal room
      * @param traderRoom the trader room
      * @return the list of rooms
      */
@@ -77,12 +80,13 @@ public class LevelGenerator {
             current.addDoor(new Door(next, "A door to " + next.getName()));
             next.addDoor(new Door(current, "A door back to " + current.getName())); // Optional backtracking
         }
-
+        generateItemsForRoom(startRoom);
         return rooms;
     }
 
     /**
      * Generate NPCs for a room.
+     *
      * @param room the room to generate NPCs for
      */
     private static void generateNPCsForRoom(Room room) {
@@ -99,4 +103,15 @@ public class LevelGenerator {
             }
         }
     }
+
+    private static void generateItemsForRoom(Room room) {
+        Item item = new DefenseAdditiveItem("defending brick", "Something of a description", "whatever an effect is", "You just used some brick", 10);
+        Item secondItem = new DefenseAdditiveItem("defending stone", "Something of stone descriptno", "whatever an effect is","Proud to use stone?", 10);
+        Item thirdItem = new DefenseAdditiveItem("defending grass", "Something of grass stone", "whatever an effect is", 10);
+
+        room.addItem(item);
+        room.addItem(secondItem);
+        room.addItem(thirdItem);
+    }
+
 }

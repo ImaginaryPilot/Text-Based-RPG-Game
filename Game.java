@@ -1,5 +1,6 @@
 package nl.rug.oop.rpg;
 
+import nl.rug.oop.rpg.Inventory.Item;
 import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.menu.*;
 import nl.rug.oop.rpg.npc.Enemy;
@@ -119,8 +120,9 @@ public class Game {
     public boolean handlePlayerChoice(int choice) {
         switch (choice) {
             case 0: // Inspect Room
-                System.out.print("You see: ");
-                player.getCurrentRoom().inspect();
+//                System.out.print("You see: ");
+//                player.getCurrentRoom().inspect();
+                handleRoom(player);
                 return true;
             case 1: // Find all possible doors
                 MoveThroughRoom.moveThroughRoom(player, scanner);
@@ -134,11 +136,64 @@ public class Game {
             case 4:
                 MoveToTraderRoom.moveToTraderFrom(player, traderRoom, scanner);
                 return true;
+            case 5:
+                HandleInventory.handleInventory(player, scanner);
+                return true;
             case 7:
                 return false;
             default:
                 System.out.println("Invalid option. Please try again.");
                 return true;
         }
+    }
+
+    public void handleRoom(Player player) {
+        System.out.print("You see: ");
+        player.getCurrentRoom().inspect();
+        List<Item> roomItems = player.getCurrentRoom().getItems();
+        if (!roomItems.isEmpty()) {
+            boolean keepInteracting = true;
+            while (keepInteracting) {
+                System.out.println("The following items are laying on the ground:");
+                for (int i = 0; i < roomItems.size(); i++) {
+                    Item item = roomItems.get(i);
+                    System.out.println(" (" + i + ") " + item.getName());
+                }
+                System.out.println("Interact ? (-1 : do nothing)");
+                int choice = scanner.nextInt();
+                if (choice == -1) {
+                    keepInteracting = false;
+                    continue;
+                } else if (choice < roomItems.size()) {
+                    Item item = roomItems.get(choice);
+                    boolean keepItemInteracting = true;
+                    while (keepItemInteracting) {
+                        System.out.println("What would you like to do with " + item.getName() + "?");
+                        System.out.println(" (0) Inspect");
+                        System.out.println(" (1) Pick up");
+                        System.out.println(" (2) Quit interaction");
+                        choice = scanner.nextInt();
+                        switch (choice) {
+                            case 0:
+                                item.inspect();
+                                break;
+                            case 1:
+                                item.pickup(player);
+                                keepItemInteracting = false;
+                                break;
+                            case 2:
+                                keepItemInteracting = false;
+                                break;
+                            default:
+                                System.out.println("Invalid option. Please try again.");
+                        }
+                    }
+                } else {
+                    System.out.println("There is no item at this location.");
+                }
+
+            }
+        }
+
     }
 }
