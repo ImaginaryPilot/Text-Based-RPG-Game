@@ -20,19 +20,19 @@ public class LevelGenerator {
      * The room names.
      */
     private static final String[] ROOM_NAMES = {
-            "Hall", "Corridor", "Cave", "Dungeon", "Chamber", "Balcony", "Diner", "Armory"};
+        "Hall", "Corridor", "Cave", "Dungeon", "Chamber", "Balcony", "Diner", "Armory"};
     /**
      * The room descriptions.
      */
     private static final String[] ROOM_DESCRIPTIONS = {
-            "A damp and eerie space.",
-            "A room lined with flickering torches.",
-            "Filled with whispers of past adventurers.",
-            "Contains walls scratched by unknown claws.",
-            "A space that smells like sulfur and fear.",
-            "A view too cramped to be called pleasant",
-            "Stacked with remnants of past dwellers",
-            "Filled with nothing but rotting and empty artifacts"
+        "A damp and eerie space.",
+        "A room lined with flickering torches.",
+        "Filled with whispers of past adventurers.",
+        "Contains walls scratched by unknown claws.",
+        "A space that smells like sulfur and fear.",
+        "A view too cramped to be called pleasant",
+        "Stacked with remnants of past dwellers",
+        "Filled with nothing but rotting and empty artifacts"
     };
 
     /**
@@ -104,10 +104,20 @@ public class LevelGenerator {
         }
     }
 
+    /**
+     * Generate items for a room.
+     * @param room the room to generate items for
+     */
     private static void generateItemsForRoom(Room room) {
-        Item item = new DefenseAdditiveItem("defending brick", "Something of a description", "whatever an effect is", "You just used some brick", 10);
-        Item secondItem = new DefenseAdditiveItem("defending stone", "Something of stone descriptno", "whatever an effect is","Proud to use stone?", 10);
-        Item thirdItem = new DefenseAdditiveItem("defending grass", "Something of grass stone", "whatever an effect is", 10);
+        Item item = new DefenseAdditiveItem(
+                "defending brick", "Something of a description",
+                "whatever an effect is", "You just used some brick", 10);
+        Item secondItem = new DefenseAdditiveItem(
+                "defending stone", "Something of stone descriptno",
+                "whatever an effect is","Proud to use stone?", 10);
+        Item thirdItem = new DefenseAdditiveItem(
+                "defending grass", "Something of grass stone",
+                "whatever an effect is", 10);
 
         room.addItem(item);
         room.addItem(secondItem);

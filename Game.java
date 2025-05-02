@@ -119,9 +119,7 @@ public class Game {
      */
     public boolean handlePlayerChoice(int choice) {
         switch (choice) {
-            case 0: // Inspect Room
-//                System.out.print("You see: ");
-//                player.getCurrentRoom().inspect();
+            case 0:
                 handleRoom(player);
                 return true;
             case 1: // Find all possible doors
@@ -147,6 +145,11 @@ public class Game {
         }
     }
 
+    /**
+     * Handle the room interaction.
+     *
+     * @param player the player to interact with the room.
+     */
     public void handleRoom(Player player) {
         System.out.print("You see: ");
         player.getCurrentRoom().inspect();
@@ -163,37 +166,44 @@ public class Game {
                 int choice = scanner.nextInt();
                 if (choice == -1) {
                     keepInteracting = false;
-                    continue;
                 } else if (choice < roomItems.size()) {
                     Item item = roomItems.get(choice);
-                    boolean keepItemInteracting = true;
-                    while (keepItemInteracting) {
-                        System.out.println("What would you like to do with " + item.getName() + "?");
-                        System.out.println(" (0) Inspect");
-                        System.out.println(" (1) Pick up");
-                        System.out.println(" (2) Quit interaction");
-                        choice = scanner.nextInt();
-                        switch (choice) {
-                            case 0:
-                                item.inspect();
-                                break;
-                            case 1:
-                                item.pickup(player);
-                                keepItemInteracting = false;
-                                break;
-                            case 2:
-                                keepItemInteracting = false;
-                                break;
-                            default:
-                                System.out.println("Invalid option. Please try again.");
-                        }
-                    }
+                    handleItem(item, player, scanner);
                 } else {
                     System.out.println("There is no item at this location.");
                 }
-
             }
         }
+    }
 
+    /**
+     * Handle the interaction with an item.
+     * @param item the item to interact with.
+     * @param player the player to interact with the item.
+     * @param scanner the scanner to read user input.
+     */
+    public static void handleItem(Item item, Player player, Scanner scanner) {
+        boolean keepItemInteracting = true;
+        while (keepItemInteracting) {
+            System.out.println("What would you like to do with " + item.getName() + "?");
+            System.out.println(" (0) Inspect");
+            System.out.println(" (1) Pick up");
+            System.out.println(" (2) Quit interaction");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 0:
+                    item.inspect();
+                    break;
+                case 1:
+                    item.pickup(player);
+                    keepItemInteracting = false;
+                    break;
+                case 2:
+                    keepItemInteracting = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
     }
 }

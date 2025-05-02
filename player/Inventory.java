@@ -59,10 +59,9 @@ public class Inventory {
     /**
      * Remove an item from the inventory.
      * @param item The item to remove.
-     * @return true if the item was removed, false otherwise.
      */
-    public boolean removeItem(Item item) {
-        return items.remove(item);
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 
     /**

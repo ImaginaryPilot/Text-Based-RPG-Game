@@ -2,7 +2,6 @@ package nl.rug.oop.rpg.Inventory;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.interfaces.Inspectable;
 import nl.rug.oop.rpg.interfaces.Interactable;
 import nl.rug.oop.rpg.player.Player;

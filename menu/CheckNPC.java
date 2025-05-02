@@ -68,8 +68,6 @@ public final class CheckNPC {
                     if (npc instanceof Attackable target) {
                         boolean targetSurvived = player.attack(target);
                         if (!targetSurvived) {
-                            int amount = 8 + RAND.nextInt(3); // 8 - 10 coin
-                            player.getMoney(amount);
                             keepInteracting = false;
                         }
                     } else {
