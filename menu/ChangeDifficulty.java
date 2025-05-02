@@ -32,17 +32,17 @@ public final class ChangeDifficulty {
                 System.out.println("Difficulty unchanged.");
                 return;
             case 0:
-                player.changeDamage(12);
+                player.setDamage(12);
                 minDamage = 3;
                 maxDamage = 6;
                 break;
             case 1:
-                player.changeDamage(10);
+                player.setDamage(10);
                 minDamage = 6;
                 maxDamage = 10;
                 break;
             case 2:
-                player.changeDamage(8);
+                player.setDamage(8);
                 minDamage = 10;
                 maxDamage = 15;
                 break;

@@ -1,8 +1,6 @@
 package nl.rug.oop.rpg.Inventory;
 import lombok.Getter;
 import lombok.Setter;
-import nl.rug.oop.rpg.interfaces.Inspectable;
-import nl.rug.oop.rpg.interfaces.Interactable;
 import nl.rug.oop.rpg.player.Player;
 
  @Getter
@@ -15,7 +13,7 @@ public class AttackItem extends Item{
 
      @Override
     public void interact(Player player) {
-        player.changeDamage(player.getDamage()*2);
+        player.setDamage(player.getDamage() * 2);
         System.out.println("Your damage has been doubled! Kinda scary for your enemies...");
     }
 }

@@ -5,13 +5,11 @@ import lombok.Setter;
 import nl.rug.oop.rpg.interfaces.Attackable;
 import nl.rug.oop.rpg.asset.Room;
 
-import java.util.Random;
-
-@Getter
-@Setter
 /**
  * The player class.
  */
+@Getter
+@Setter
 public class Player implements Attackable {
     /**
      * The name of the player.
@@ -54,20 +52,21 @@ public class Player implements Attackable {
     }
 
     /**
-     * Change the damage amount of the player.
+     * Increase the damage.
      *
-     * @param damage change the amount of damage taken
+     * @param increase the amount that damage gets increased
      */
-    public void changeDamage(int damage){
-        this.damage = damage;
+    public void increaseDamage(int increase) {
+        this.damage = damage + increase;
     }
 
     /**
      * Increases the damage negated by the armor of the player.
      *
+     * @param increase the amount that damage resistance gets increased
      */
-    public void changeDamageResistance(){
-        this.damageResistance = damageResistance + 2;
+    public void increaseDamageResistance(int increase) {
+        this.damageResistance = damageResistance + increase;
     }
 
     /**
@@ -81,19 +80,13 @@ public class Player implements Attackable {
         return health > 0;
     }
 
-    public int heal(){
-        Random rand = new Random();
-        int val = rand.nextInt(5) * 10;
-        if(health + val > maxHealth){
-            int val2 = health;
-            this.health = maxHealth;
-            return maxHealth - val2;
-        }
-        else{
-            health = health + val;
-            return val;
-        }
-
+    /**
+     * Increase the player's health till it reaches the maximum health.
+     *
+     * @param increase the amount that health gets increased
+     */
+    public void increaseHealth(int increase) {
+        this.health = Math.max(health + increase, maxHealth);
     }
 
     /**
