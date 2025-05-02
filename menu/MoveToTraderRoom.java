@@ -1,6 +1,5 @@
 package nl.rug.oop.rpg.menu;
 
-import nl.rug.oop.rpg.asset.Door;
 import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.player.Player;
 
@@ -13,6 +12,7 @@ public class MoveToTraderRoom {
         player.setCurrentRoom(traderRoom);
 
         while(trader){
+            System.out.println("You have " + player.getMoney() + " coins.");
             System.out.println("What would you like to buy/trader?");
             System.out.println(" (_) __");
             System.out.println(" (1) Return?");
@@ -31,5 +31,4 @@ public class MoveToTraderRoom {
         }
         player.setCurrentRoom(previousRoom);
     }
-
 }

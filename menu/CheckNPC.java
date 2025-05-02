@@ -6,8 +6,11 @@ import nl.rug.oop.rpg.npc.NPC;
 import nl.rug.oop.rpg.player.Player;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public final class CheckNPC {
+    private static final Random rand = new Random();
+
     public static void checkNPC(Player player, Scanner scanner) {
         Room currentRoom = player.getCurrentRoom();
         System.out.println("You look if there’s someone here.");
@@ -46,6 +49,8 @@ public final class CheckNPC {
                     if (npc instanceof Attackable target) {
                         boolean targetSurvived = player.attack(target);
                         if (!targetSurvived) {
+                            int amount = 8 + rand.nextInt(3); // 8 - 10 coin
+                            player.getMoney(amount);
                             keepInteracting = false;
                         }
                     } else {

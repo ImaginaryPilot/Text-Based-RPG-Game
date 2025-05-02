@@ -27,6 +27,10 @@ public class Player implements Attackable {
      * The damage the player does.
      */
     private int damage;
+    /**
+     * The amount of money the player has
+     */
+    private int money;
 
     /**
      * Constructor Player.
@@ -39,6 +43,7 @@ public class Player implements Attackable {
         this.currentRoom = currentRoom;
         this.health = 100;
         this.damage = 10;
+        this.money = 0;
     }
 
     /**
@@ -59,6 +64,20 @@ public class Player implements Attackable {
     public boolean takeDamage(int damage) {
         health -= damage;
         return health > 0;
+    }
+
+    public void getMoney(int amount) {
+        money += amount;
+    }
+
+    public boolean useMoney(int amount) {
+        if(money - amount >= 0){
+            money -= amount;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**
