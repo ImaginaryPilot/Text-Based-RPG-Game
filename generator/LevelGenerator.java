@@ -10,24 +10,47 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The LevelGenerator class.
+ */
 public class LevelGenerator {
-
-    private static final String[] ROOM_NAMES = {"Hall", "Corridor", "Cave", "Dungeon", "Chamber", "Balcony", "Diner", "Armory"};
+    /**
+     * The room names.
+     */
+    private static final String[] ROOM_NAMES = {
+        "Hall", "Corridor", "Cave", "Dungeon", "Chamber", "Balcony", "Diner", "Armory"};
+    /**
+     * The room descriptions.
+     */
     private static final String[] ROOM_DESCRIPTIONS = {
-            "A damp and eerie space.",
-            "A room lined with flickering torches.",
-            "Filled with whispers of past adventurers.",
-            "Contains walls scratched by unknown claws.",
-            "A space that smells like sulfur and fear.",
-            "A view too cramped to be called pleasant",
-            "Stacked with remnants of past dwellers",
-            "Filled with nothing but rotting and empty artifacts"
+        "A damp and eerie space.",
+        "A room lined with flickering torches.",
+        "Filled with whispers of past adventurers.",
+        "Contains walls scratched by unknown claws.",
+        "A space that smells like sulfur and fear.",
+        "A view too cramped to be called pleasant",
+        "Stacked with remnants of past dwellers",
+        "Filled with nothing but rotting and empty artifacts"
     };
 
+    /**
+     * The enemies.
+     */
     private static final String[] ENEMIES = {"Goblin", "Wraith", "Skeleton", "Bandit", "Slime"};
 
-    private static final Random rand = new Random();
+    /**
+     * The random number generator.
+     */
+    private static Random rand = new Random();
 
+    /**
+     * Generate rooms.
+     * @param count the number of rooms to generate
+     * @param startRoom the start room
+     * @param goalRoom the goal room
+     * @param traderRoom the trader room
+     * @return the list of rooms
+     */
     public static List<Room> generateRooms(int count, Room startRoom, Room goalRoom, Room traderRoom) {
         List<Room> rooms = new ArrayList<>();
         List<String> availableNames = new ArrayList<>(List.of(ROOM_NAMES));
@@ -58,6 +81,10 @@ public class LevelGenerator {
         return rooms;
     }
 
+    /**
+     * Generate NPCs for a room.
+     * @param room the room to generate NPCs for
+     */
     private static void generateNPCsForRoom(Room room) {
         int numNPCs = 1 + rand.nextInt(3); // 1 to 3 NPCs per room
 

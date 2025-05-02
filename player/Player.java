@@ -5,11 +5,11 @@ import lombok.Setter;
 import nl.rug.oop.rpg.interfaces.Attackable;
 import nl.rug.oop.rpg.asset.Room;
 
-@Getter
-@Setter
 /**
  * The player class.
  */
+@Getter
+@Setter
 public class Player implements Attackable {
     /**
      * The name of the player.
@@ -24,9 +24,17 @@ public class Player implements Attackable {
      */
     private int health;
     /**
+     * The maximum health of the player.
+     */
+    private int maxHealth;
+    /**
      * The damage the player does.
      */
     private int damage;
+    /**
+     * The damage subtracted from the attacks of the enemies.
+     */
+    private int damageResistance;
     /**
      * The amount of money the player has
      */
@@ -42,17 +50,28 @@ public class Player implements Attackable {
         this.name = name;
         this.currentRoom = currentRoom;
         this.health = 100;
+        this.maxHealth = 100;
         this.damage = 10;
+        this.damageResistance = 0;
         this.money = 0;
     }
 
     /**
-     * Change the damage amount of the player.
+     * Increase the damage.
      *
-     * @param damage change the amount of damage taken
+     * @param increase the amount that damage gets increased
      */
-    public void changeDamage(int damage){
-        this.damage = damage;
+    public void increaseDamage(int increase) {
+        this.damage = damage + increase;
+    }
+
+    /**
+     * Increases the damage negated by the armor of the player.
+     *
+     * @param increase the amount that damage resistance gets increased
+     */
+    public void increaseDamageResistance(int increase) {
+        this.damageResistance = damageResistance + increase;
     }
 
     /**
@@ -62,7 +81,7 @@ public class Player implements Attackable {
      * @return true if the player is still alive, false otherwise
      */
     public boolean takeDamage(int damage) {
-        health -= damage;
+        health = health - (damage - damageResistance);
         return health > 0;
     }
 
@@ -78,6 +97,15 @@ public class Player implements Attackable {
         else {
             return false;
         }
+    }
+
+    /**
+     * Increase the player's health till it reaches the maximum health.
+     *
+     * @param increase the amount that health gets increased
+     */
+    public void increaseHealth(int increase) {
+        this.health = Math.max(health + increase, maxHealth);
     }
 
     /**

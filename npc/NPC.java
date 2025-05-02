@@ -7,11 +7,11 @@ import nl.rug.oop.rpg.interfaces.Inspectable;
 import nl.rug.oop.rpg.interfaces.Interactable;
 import nl.rug.oop.rpg.player.Player;
 
-@Getter
-@Setter
 /**
  * The NPC class.
  */
+@Getter
+@Setter
 public class NPC implements Inspectable, Interactable {
     /**
      * The description of the NPC.
@@ -22,6 +22,10 @@ public class NPC implements Inspectable, Interactable {
      */
     private int health;
     /**
+     * The maximum health of the NPC.
+     */
+    private int maxHealth;
+    /**
      * The damage the NPC does.
      */
     private int damage;
@@ -30,11 +34,22 @@ public class NPC implements Inspectable, Interactable {
      * Constructor NPC.
      *
      * @param description the description of the NPC
+     * @param health      the health of the NPC
+     * @param damage      the damage the NPC does
      */
     public NPC(String description, int health, int damage) {
         this.description = description;
         this.health = health;
+        this.maxHealth = health;
         this.damage = damage;
+    }
+
+    /**
+     * Constructor NPC with default values.
+     * @param description the description of the NPC
+     */
+    public NPC(String description) {
+        this(description, 100, 10);
     }
 
     /**
@@ -53,15 +68,6 @@ public class NPC implements Inspectable, Interactable {
     @Override
     public void interact(Player player) {
         System.out.println("Howdy, " + player.getName() + "!");
-    }
-
-    /**
-     * Get the NPC description.
-     *
-     * @return description
-     */
-    public String getNPCDescription() {
-        return description;
     }
 
     /**
@@ -84,7 +90,7 @@ public class NPC implements Inspectable, Interactable {
      *
      * @param damage change the damage amount
      */
-    public void changeDamage(int damage){
+    public void changeDamage(int damage) {
         this.damage = damage;
     }
 
@@ -98,7 +104,6 @@ public class NPC implements Inspectable, Interactable {
         System.out.println("An enemy attacked you with " + damage + " damage! Health left:" + target.getHealth());
         if (!targetSurvived) {
             target.onDeath();
-            return;
         }
     }
 

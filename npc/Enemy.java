@@ -8,20 +8,32 @@ import nl.rug.oop.rpg.player.Player;
  */
 public class Enemy extends NPC implements Attackable {
     /**
-     * The default health of the NPC.
+     * The default health for an NPC.
      */
-    private int health;
+    private static final int DEFAULT_HEALTH = 100;
     /**
-     * The default damage of the NPC.
+     * The default damage for an NPC.
      */
-    private int damage;
+    private static final int DEFAULT_DAMAGE = 10;
+
     /**
      * Constructor NPC.
      *
      * @param description the description of the NPC
+     * @param health      the health of the NPC
+     * @param damage      the damage the NPC does
      */
     public Enemy(String description, int health, int damage) {
         super(description, health, damage);
+    }
+
+    /**
+     * Constructor NPC with default values.
+     *
+     * @param description the description of the NPC
+     */
+    public Enemy(String description) {
+        this(description, DEFAULT_HEALTH, DEFAULT_DAMAGE);
     }
 
     /**
@@ -33,7 +45,6 @@ public class Enemy extends NPC implements Attackable {
     public void interact(Player player) {
         System.out.println("Howdy, " + player.getName() + "! I'm really friendly!");
     }
-
 
     /**
      * Reduce the NPC's health by the given damage amount.

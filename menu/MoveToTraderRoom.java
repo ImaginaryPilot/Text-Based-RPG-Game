@@ -5,7 +5,16 @@ import nl.rug.oop.rpg.player.Player;
 
 import java.util.Scanner;
 
+/**
+ * The MoveToTraderRoom class.
+ */
 public class MoveToTraderRoom {
+    /**
+     * Move to the trader room from the current room.
+     * @param player the player
+     * @param traderRoom the trader room
+     * @param scanner the scanner
+     */
     public static void moveToTraderFrom(Player player, Room traderRoom, Scanner scanner) {
         boolean trader = true;
         Room previousRoom = player.getCurrentRoom();
@@ -18,7 +27,7 @@ public class MoveToTraderRoom {
             System.out.println(" (1) Return?");
 
             int choice = scanner.nextInt();
-            switch (choice){
+            switch (choice) {
                 case 0:
                     break;
                 case 1:

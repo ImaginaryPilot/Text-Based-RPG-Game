@@ -6,7 +6,7 @@ package nl.rug.oop.rpg;
 public class Main {
     /**
      * The main function.
-     * 
+     *
      * @param args - command line arguments
      */
     public static void main(String[] args) {
