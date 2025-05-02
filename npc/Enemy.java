@@ -1,5 +1,6 @@
 package nl.rug.oop.rpg.npc;
 
+import nl.rug.oop.rpg.Inventory.Item;
 import nl.rug.oop.rpg.interfaces.Attackable;
 import nl.rug.oop.rpg.player.Player;
 
@@ -15,6 +16,15 @@ public class Enemy extends NPC implements Attackable {
      * The default damage for an NPC.
      */
     private static final int DEFAULT_DAMAGE = 10;
+    /**
+     * The default drop item for an NPC.
+     */
+    private static final Item DEFAULT_DROPITEM = null;
+
+    /**
+     * The drop item.
+     */
+    private Item dropItem;
 
     /**
      * Constructor NPC.
@@ -22,9 +32,22 @@ public class Enemy extends NPC implements Attackable {
      * @param description the description of the NPC
      * @param health      the health of the NPC
      * @param damage      the damage the NPC does
+     * @param dropItem    the drop item
+     */
+    public Enemy(String description, int health, int damage, Item dropItem) {
+        super(description, health, damage);
+        this.dropItem = dropItem;
+    }
+
+    /**
+     * Constructor NPC with default values.
+     *
+     * @param description the description of the NPC
+     * @param health      the health of the NPC
+     * @param damage      the damage the NPC does
      */
     public Enemy(String description, int health, int damage) {
-        super(description, health, damage);
+        this(description, health, damage, DEFAULT_DROPITEM);
     }
 
     /**
@@ -33,7 +56,7 @@ public class Enemy extends NPC implements Attackable {
      * @param description the description of the NPC
      */
     public Enemy(String description) {
-        this(description, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+        this(description, DEFAULT_HEALTH, DEFAULT_DAMAGE, DEFAULT_DROPITEM);
     }
 
     /**
@@ -55,6 +78,17 @@ public class Enemy extends NPC implements Attackable {
     @Override
     public boolean reduceHealth(int damage) {
         return super.takeDamage(damage);
+    }
+
+    /**
+     * Reduce the NPC's health by the given damage amount.
+     *
+     * @param damage the damage taken
+     * @return true if the NPC is still alive, false otherwise
+     */
+    @Override
+    public boolean reduceCombatHealth(int damage) {
+        return this.reduceHealth(damage);
     }
 
     /**

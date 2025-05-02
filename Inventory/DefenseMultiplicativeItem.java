@@ -55,6 +55,6 @@ public class DefenseMultiplicativeItem extends DefenseItem {
     public void interact(Player player) {
         int newDamageResistance = (int) (player.getDamageResistance() * damageResistance);
         player.setDamageResistance(newDamageResistance);
-        this.drop(player);
+        this.dropFromInventory(player);
     }
 }

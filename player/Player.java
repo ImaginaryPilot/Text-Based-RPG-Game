@@ -28,13 +28,25 @@ public class Player implements Attackable {
      */
     private int maxHealth;
     /**
-     * The damage the player does.
+     * The base damage the player does.
      */
     private int damage;
+    /**
+     * The damage multiplier to the player's damage.
+     */
+    private int damageMultiplier;
+    /**
+     * The damage added to the player's damage.
+     */
+    private int damageAdditive;
     /**
      * The damage subtracted from the attacks of the enemies.
      */
     private int damageResistance;
+    /**
+     * The damage resistance multiplier to the player's damage resistance.
+     */
+    private int damageResistanceMultiplier;
     /**
      * The inventory of the player.
      */
@@ -81,7 +93,19 @@ public class Player implements Attackable {
      * @return true if the player is still alive, false otherwise
      */
     public boolean reduceHealth(int damage) {
-        health = health - (damage - damageResistance);
+        health = health - damage;
+        return health > 0;
+    }
+
+    /**
+     * Reduce the player's health by the given damage amount.
+     * Taking into account the damage resistance of the player.
+     *
+     * @param damage the damage taken, taking into account the damage resistance of the player.
+     * @return true if the player is still alive, false otherwise
+     */
+    public boolean reduceCombatHealth(int damage) {
+        health = health - (damage - damageResistance * damageResistanceMultiplier);
         return health > 0;
     }
 
@@ -110,7 +134,8 @@ public class Player implements Attackable {
      * @return true if the target is still alive, false otherwise
      */
     public boolean attack(Attackable target) {
-        boolean targetSurvived = target.reduceHealth(damage);
+        int damage = (this.damage + this.damageAdditive) * this.damageMultiplier;
+        boolean targetSurvived = target.reduceCombatHealth(damage);
         if (!targetSurvived) {
             this.currentRoom.removeDeadNPCs();
             return false;

@@ -75,9 +75,15 @@ public class Inventory {
     /**
      * Remove gold from the inventory.
      * @param gold The amount of gold to remove.
+     * @return true if the gold was removed, false otherwise.
      */
-    public void removeGold(int gold) {
-        this.gold -= gold;
+    public boolean removeGold(int gold) {
+        if (this.gold >= gold) {
+            this.gold -= gold;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

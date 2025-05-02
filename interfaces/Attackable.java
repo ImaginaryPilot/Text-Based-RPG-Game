@@ -13,6 +13,14 @@ public interface Attackable {
     boolean reduceHealth(int damage);
 
     /**
+     * Reduce damage.
+     * This method is used for the combat system.
+     * @param damage the damage taken. This is the damage that will be reduced by the combat system.
+     * @return true if the object is still alive, false otherwise.
+     */
+    boolean reduceCombatHealth(int damage);
+
+    /**
      * Get the health of the object.
      *
      * @return health

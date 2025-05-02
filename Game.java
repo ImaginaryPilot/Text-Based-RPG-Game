@@ -1,5 +1,7 @@
 package nl.rug.oop.rpg;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.rug.oop.rpg.Inventory.Item;
 import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.menu.*;
@@ -13,6 +15,8 @@ import java.util.Scanner;
 /**
  * The main game class.
  */
+@Getter
+@Setter
 public class Game {
     /**
      * The player.
@@ -54,21 +58,8 @@ public class Game {
     public void startGame() {
         System.out.println("Welcome to ___ RPG");
         System.out.println("Please input a player name:");
-
         String playerName = scanner.nextLine(); // <-- Read player name
-        Room startRoom = new Room("Lobby", "A desolate and empty lobby.");
-        goalRoom = new Room("Vault", "The room to exponential possibility and ends.");
-        traderRoom = new Room("Trader's Den", "A hidden nook filled with rare goods.");
-
-        player = new Player(playerName, startRoom);
-
-        // Final Boss
-        boss = new Enemy("The red valiant Dragon, protecting it's history.", 200, 20);
-        goalRoom.addNPC(boss);
-
-        // Generate intermediate rooms
-        levelRooms = LevelGenerator.generateRooms(6, startRoom, goalRoom, traderRoom);
-
+        LevelGenerator.startLevelGeneration(this,playerName);
         System.out.println(player.getName() + " enters the lobby...");
     }
 

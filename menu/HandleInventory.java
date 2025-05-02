@@ -76,7 +76,7 @@ public class HandleInventory {
                     System.out.println(" (2) Quit interaction");
                     choice = scanner.nextInt();
                     if (choice == 0) {
-                        item.drop(player);
+                        item.dropFromInventory(player);
                         System.out.println("You dropped the " + item.getName() + " on the ground.");
                         keepItemInteracting = false;
                     }

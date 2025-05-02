@@ -1,11 +1,13 @@
 package nl.rug.oop.rpg.generator;
 
+import nl.rug.oop.rpg.Game;
 import nl.rug.oop.rpg.Inventory.DefenseAdditiveItem;
 import nl.rug.oop.rpg.Inventory.Item;
 import nl.rug.oop.rpg.asset.Door;
 import nl.rug.oop.rpg.asset.Room;
 import nl.rug.oop.rpg.npc.Enemy;
 import nl.rug.oop.rpg.npc.NPC;
+import nl.rug.oop.rpg.player.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,11 +41,30 @@ public class LevelGenerator {
      * The enemies.
      */
     private static final String[] ENEMIES = {"Goblin", "Wraith", "Skeleton", "Bandit", "Slime"};
-
     /**
      * The random number generator.
      */
     private static Random rand = new Random();
+
+    /**
+     * Start level generation.
+     * @param game the game to generate the level for. The game should not have a level yet.
+     * @param playerName the name of the player to generate for. The player should not have a level yet.
+     */
+    public static void startLevelGeneration(Game game, String playerName) {
+        Room startRoom = new Room("Lobby", "A desolate and empty lobby.");
+        Room goalRoom = new Room("Vault", "The room to exponential possibility and ends.");
+        Room traderRoom = new Room("Trader's Den", "A hidden nook filled with rare goods.");
+
+        game.setPlayer(new Player(playerName, startRoom));
+
+        // Final Boss
+        NPC boss = new Enemy("The red valiant Dragon, protecting it's history.", 200, 20);
+        goalRoom.addNPC(boss);
+
+        // Generate intermediate rooms
+        game.setLevelRooms(LevelGenerator.generateRooms(6, startRoom, goalRoom, traderRoom));
+    }
 
     /**
      * Generate rooms.
@@ -106,6 +127,7 @@ public class LevelGenerator {
 
     /**
      * Generate items for a room.
+     *
      * @param room the room to generate items for
      */
     private static void generateItemsForRoom(Room room) {
@@ -114,7 +136,7 @@ public class LevelGenerator {
                 "whatever an effect is", "You just used some brick", 10);
         Item secondItem = new DefenseAdditiveItem(
                 "defending stone", "Something of stone descriptno",
-                "whatever an effect is","Proud to use stone?", 10);
+                "whatever an effect is", "Proud to use stone?", 10);
         Item thirdItem = new DefenseAdditiveItem(
                 "defending grass", "Something of grass stone",
                 "whatever an effect is", 10);

@@ -48,7 +48,7 @@ public abstract class Item implements Inspectable, Interactable {
      *
      * @param player the player who drops the item
      */
-    public void drop(Player player) {
+    public void dropFromInventory(Player player) {
         player.getInventory().removeItem(this);
         player.getCurrentRoom().addItem(this);
         System.out.println("You dropped the " + name + ".");
