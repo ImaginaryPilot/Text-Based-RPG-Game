@@ -1,0 +1,1 @@
+In this RPG you'll be acting as the player. The game is a sort of dungeon crawler where you make your way through all kinds of rooms, and you'll run into some of the most fantastic creatures (un)known to mankind. If you manage to reach the final room, you win eternal fame and glory.
