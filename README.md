@@ -49,27 +49,27 @@ mvn exec:java -Dexec.mainClass="your.package.Main"
 
 ## Gameplay
 
-Interact via the menu: look around, inspect doors, talk to NPCs, manage inventory, change difficulty, save/load.
+1.  Interact via the menu: look around, inspect doors, talk to NPCs, manage inventory, change difficulty, save/load.
 
-Combat is turn-based; the player or enemy dies if health ≤ 0.
+2.  Combat is turn-based; the player or enemy dies if health ≤ 0.
 
-Complete quests and collect items to progress.
+3.  Complete quests and collect items to progress.
 
 ## Saving & Loading
 
-QuickSave / QuickLoad: savedgames/quicksave.ser.
+- QuickSave / QuickLoad: `savedgames/quicksave.ser`.
 
-Named Save / Load: Custom filenames inside savedgames/.
+- Named Save / Load: Custom filenames inside `savedgames/`.
 
-Classes implement Serializable with serialVersionUID.
+- **Classes implement `Serializable` with `serialVersionUID`.
 
 ## Error Handling
 
-Input validation prevents crashes.
+- Input validation prevents crashes.
 
-Save/load errors provide user feedback.
+- Save/load errors provide user feedback.
 
-Exceptions handled gracefully.
+- Exceptions handled gracefully.
 
 ## License
 MIT LICENSE - see LICENSE file
