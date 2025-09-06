@@ -61,7 +61,7 @@ mvn exec:java -Dexec.mainClass="your.package.Main"
 
 - Named Save / Load: Custom filenames inside `savedgames/`.
 
-- **Classes implement `Serializable` with `serialVersionUID`.
+- Classes implement `Serializable` with `serialVersionUID`.
 
 ## Error Handling
 
